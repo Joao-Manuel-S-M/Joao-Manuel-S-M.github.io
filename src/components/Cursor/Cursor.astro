@@ -1,0 +1,172 @@
+<div class="custom-cursor" id="customCursor">
+	<div class="inner-circle" id="innerCircle"></div>
+</div>
+
+<style>
+	body {
+		cursor: none; /* Esconde o cursor padrão */
+	}
+
+	.custom-cursor {
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background-color: rgb(250, 250, 250); /* Cor azul do cursor */
+		position: fixed; /* Use fixed para evitar problemas com scroll */
+		pointer-events: none; /* O cursor não interfere com outros elementos */
+		mix-blend-mode: difference; /* Modo de mistura */
+		transition:
+			transform 0.05s ease,
+			width 0.6s ease,
+			height 0.6s ease,
+			background-color 0.2s ease; /* Suaviza o movimento, a escala e a cor do cursor */
+		z-index: 10000; /* Garante que o cursor esteja sempre no topo */
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.inner-circle {
+		width: 70px;
+		height: 70px;
+		border-radius: 50%;
+		border: 2px solid rgba(250, 250, 250, 0.5); /* Borda do círculo interno */
+		position: absolute;
+		transition:
+			transform 0.07s ease,
+			width 0.5s ease,
+			height 0.5s ease; /* Suaviza o movimento e a escala do círculo interno */
+	}
+
+	/* Garante que o cursor padrão seja oculto em todos os elementos */
+	* {
+		cursor: none !important;
+	}
+
+	/* Classe para o efeito de escala */
+	.custom-cursor.scale {
+		width: 20px;
+		height: 20px;
+	}
+
+	.inner-circle.scale {
+		width: 40px;
+		height: 40px;
+	}
+
+	/* Classe para o efeito de blend mode */
+	.custom-cursor.blend-mode {
+		background-color: rgb(
+			255,
+			255,
+			255
+		); /* Cor amarela quando o blend mode é aplicado */
+	}
+
+	/* Desabilita o cursor personalizado em telas menores que 800px */
+	@media (max-width: 800px) {
+		.custom-cursor {
+			display: none;
+		}
+		body {
+			cursor: auto; /* Mostra o cursor padrão */
+		}
+	}
+</style>
+
+<script is:inline>
+	const customCursor = document.getElementById("customCursor");
+	const innerCircle = document.getElementById("innerCircle");
+	let mouseX = 0,
+		mouseY = 0;
+	let innerX = 0,
+		innerY = 0;
+
+	document.addEventListener("mousemove", (e) => {
+		if (window.innerWidth >= 800) {
+			mouseX = e.clientX;
+			mouseY = e.clientY;
+		}
+	});
+
+	document.addEventListener("mouseover", (e) => {
+		"";
+
+		if (window.innerWidth >= 800) {
+			//@ts-ignore
+			if (getComputedStyle(e.target).cursor === "pointer") {
+				//@ts-ignore
+				customCursor.classList.add("scale");
+				//@ts-ignore
+				innerCircle.classList.add("scale");
+			} else {
+				//@ts-ignore
+				customCursor.classList.remove("scale");
+				//@ts-ignore
+				innerCircle.classList.remove("scale");
+			}
+		}
+	});
+
+	document.addEventListener("mouseenter", (e) => {
+		if (window.innerWidth >= 800) {
+			//@ts-ignore
+			customCursor.classList.add("blend-mode");
+		}
+	});
+
+	document.addEventListener("mouseleave", (e) => {
+		if (window.innerWidth >= 800) {
+			//@ts-ignore
+			customCursor.classList.remove("blend-mode");
+		}
+	});
+
+	document.addEventListener("mousedown", (e) => {
+		if (window.innerWidth >= 800 && e.button === 0) {
+			// Verifica se o botão esquerdo do mouse foi clicado
+			//@ts-ignore
+			customCursor.classList.add("scale");
+			//@ts-ignore
+			innerCircle.classList.add("scale");
+		}
+	});
+
+	document.addEventListener("mouseup", (e) => {
+		if (window.innerWidth >= 800 && e.button === 0) {
+			// Verifica se o botão esquerdo do mouse foi solto
+			//@ts-ignore
+			customCursor.classList.remove("scale");
+			//@ts-ignore
+			innerCircle.classList.remove("scale");
+		}
+	});
+
+	//@ts-ignore
+	function lerp(start, end, amt) {
+		return (1 - amt) * start + amt * end;
+	}
+
+	function updateCursor() {
+		if (window.innerWidth >= 800) {
+			//@ts-ignore
+			const cursorWidth = customCursor.offsetWidth;
+			//@ts-ignore
+			const cursorHeight = customCursor.offsetHeight;
+
+			// Atualiza a posição do cursor principal
+			//@ts-ignore
+			customCursor.style.transform = `translate(${mouseX - cursorWidth / 2}px, ${mouseY - cursorHeight / 2}px)`;
+
+			// Interpola a posição do círculo interno para criar um atraso
+			innerX = lerp(innerX, mouseX, 0.2); // Diminuir o atraso aumentando o valor de amt
+			innerY = lerp(innerY, mouseY, 0.2); // Diminuir o atraso aumentando o valor de amt
+			//@ts-ignore
+			innerCircle.style.transform = `translate(${innerX - mouseX}px, ${innerY - mouseY}px)`;
+		}
+
+		requestAnimationFrame(updateCursor);
+	}
+
+	requestAnimationFrame(updateCursor);
+</script>

@@ -1,0 +1,183 @@
+---
+import Cursor from "../components/Cursor/Cursor.astro";
+import '../styles/global.css';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Astro description" />
+		<meta name="viewport" content="width=device-width" />
+
+		<!-- <link rel="stylesheet" href="../../src/styles/global.css" /> -->
+		<meta name="generator" content={Astro.generator} />
+		<link rel="shortcut icon" href="/public/assets/favicon.svg" type="image/x-icon">
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Italiana&display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap"
+			rel="stylesheet"
+		/>
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"
+			defer></script>
+
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"
+			defer></script>
+		<script
+			type="text/javascript"
+			src="https://cdn.jsdelivr.net/npm/smooth-scrollbar@8.6.3/dist/smooth-scrollbar.js"
+			defer></script>
+
+		<title>João Manuel | Portfólio</title>
+	</head>
+	<body>
+		<Cursor />
+
+		<slot />
+
+		<script>
+			
+			document.addEventListener("DOMContentLoaded", () => {
+            console.log("DOM fully loaded and parsed");
+
+            // Verificar se a largura da tela é maior que 800px
+            const isLargeScreen = window.innerWidth > 800;
+
+            if (isLargeScreen) {
+                // Inicializar o Smooth Scrollbar
+                // @ts-ignore
+                const scrollbar = Scrollbar.init(
+                    document.querySelector("#smooth-content"),
+                    {
+                        damping: 0.1,
+                        continuousScrolling: true,
+                        renderByPixels: false,
+                        plugins: {
+                            overscroll: {
+                                effect: "glow",
+                                direction: "y", // Permite apenas scroll vertical
+                            },
+                        },
+                    }
+                );
+
+                // Desativar o scroll horizontal
+                // @ts-ignore
+                scrollbar.addListener(({ offset }) => {
+                    if (offset.x !== 0) {
+                        scrollbar.setPosition(0, offset.y, { withoutCallbacks: true });
+                    }
+                });
+
+                console.log("Smooth Scrollbar initialized:", scrollbar);
+
+                // Verificar se GSAP e ScrollTrigger estão disponíveis
+                // @ts-ignore
+                console.log("GSAP:", typeof gsap);
+                // @ts-ignore
+                console.log("ScrollTrigger:", typeof ScrollTrigger);
+
+                if (
+                    // @ts-ignore
+                    typeof gsap !== "undefined" &&
+                    // @ts-ignore
+                    typeof ScrollTrigger !== "undefined"
+                ) {
+                    console.log("GSAP and ScrollTrigger loaded");
+
+                    // @ts-ignore
+                    gsap.registerPlugin(ScrollTrigger);
+
+                    // Sincronizar o ScrollTrigger com o Smooth Scrollbar
+                    // @ts-ignore
+                    ScrollTrigger.scrollerProxy("#smooth-content", {
+                        // @ts-ignore
+                        scrollTop(value) {
+                            if (arguments.length) {
+                                scrollbar.scrollTop = value;
+                            }
+                            return scrollbar.scrollTop;
+                        },
+                    });
+
+                    // @ts-ignore
+                    scrollbar.addListener(ScrollTrigger.update);
+
+                    // Animações com GSAP
+                    // Animações com GSAP
+					// @ts-ignore
+					gsap.utils.toArray(".title").forEach((element) => {
+						// @ts-ignore
+						console.log("Animating .title element:", element);
+						// @ts-ignore
+						gsap.from(element, {
+							scrollTrigger: {
+								trigger: element,
+								start: "top 100%",
+								end: "top 70%",
+								scrub: true,
+								scroller: "#smooth-content",
+							},
+							y: 50,
+							opacity: 0,
+							duration: 1,
+						});
+					});
+
+					// @ts-ignore
+					gsap.utils.toArray(".items").forEach((element) => {
+						console.log("Animating .items element:", element);
+						// @ts-ignore
+						gsap.from(element, {
+							scrollTrigger: {
+								trigger: element,
+								start: "top 100%",
+								end: "top 70%",
+								scrub: true,
+								scroller: "#smooth-content",
+							},
+							y: 50,
+							opacity: 0,
+							duration: 1,
+						});
+					});
+
+					// @ts-ignore
+					gsap.utils.toArray(".itemsDown").forEach((element) => {
+						// @ts-ignore
+						console.log("Animating .itemsDown element:", element);
+						// @ts-ignore
+						gsap.from(element, {
+							scrollTrigger: {
+								trigger: element,
+								start: "top 100%",
+								end: "top 90%",
+								scrub: true,
+								scroller: "#smooth-content",
+							},
+							y: -50,
+							opacity: 0,
+							duration: 1,
+						});
+					});
+                }
+            }
+        });
+
+					
+			
+					
+				
+			
+		</script>
+	</body>
+</html>

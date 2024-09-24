@@ -1,0 +1,205 @@
+<nav
+	class="fixed left-0 right-0 z-20 m-auto hidden w-fit gap-[20px] rounded-[50px] border-[1px] border-[#372F2F] bg-white/30 bg-cover px-[25px] backdrop-blur-lg 2md:top-[25px] 2md:flex"
+>
+	<div class="flex items-center gap-[20px]">
+		<input type="radio" id="casa" name="nav" class="hidden" />
+		<label
+			for="casa"
+			class="menu__link cursor-pointer font-matter text-[.7rem] uppercase text-[#372F2F]"
+			>home</label
+		>
+		<div class="h-[40px] w-[1px] bg-[#372F2F]"></div>
+	</div>
+
+	<div class="flex items-center gap-[20px]">
+		<input type="radio" id="sobre" name="nav" class="hidden" />
+		<label
+			for="sobre"
+			class="menu__link cursor-pointer font-matter text-[.7rem] uppercase text-[#372F2F]"
+			>sobre</label
+		>
+		<div class="h-[40px] w-[1px] bg-[#372F2F]"></div>
+	</div>
+	<div class="flex items-center gap-[20px]">
+		<input type="radio" id="projetos" name="nav" class="hidden" />
+		<label
+			for="projetos"
+			class="menu__link cursor-pointer font-matter text-[.7rem] uppercase text-[#372F2F]"
+			>projetos</label
+		>
+		<div class="h-[40px] w-[1px] bg-[#372F2F]"></div>
+	</div>
+	<div class="flex items-center gap-[20px]">
+		<input type="radio" id="tecnologias" name="nav" class="hidden" />
+		<label
+			for="tecnologias"
+			class="menu__link cursor-pointer font-matter text-[.7rem] uppercase text-[#372F2F]"
+			>skills</label
+		>
+		<div class="h-[40px] w-[1px] bg-[#372F2F]"></div>
+	</div>
+	<div class="flex items-center gap-[20px]">
+		<input type="radio" id="cv" name="nav" class="hidden" />
+		<label
+			for="cv"
+			class="menu__link cursor-pointer font-matter text-[.7rem] uppercase text-[#372F2F]"
+			>currículo</label
+		>
+		<div class="h-[40px] w-[1px] bg-[#372F2F]"></div>
+	</div>
+	<div class="flex items-center gap-[20px]">
+		<input type="radio" id="number" name="nav" class="hidden" />
+		<label
+			for="number"
+			class="menu__link cursor-pointer font-matter text-[.7rem] uppercase text-[#372F2F]"
+			>Contato</label
+		>
+	</div>
+</nav>
+
+<style>
+	/* <reset-style> ============================ */
+	a {
+		text-decoration: none;
+	}
+	/* <main-style> ============================ */
+	.menu__link {
+		color: #372f2f;
+		line-height: 2;
+		position: relative;
+	}
+
+	.menu__link::before {
+		content: "";
+		width: 0;
+		height: 1.5px;
+		border-radius: 2px;
+		background-color: #372f2f;
+		position: absolute;
+		bottom: 2px;
+		right: 0;
+		transition:
+			right 0.4s,
+			width 0.4s,
+			left 0.4s;
+	}
+
+	.menu__link:hover::before,
+	input[type="radio"]:checked + .menu__link::before {
+		width: 100%;
+		left: 0;
+	}
+</style>
+
+<style>
+	/* <reset-style> ============================ */
+	a {
+		text-decoration: none;
+	}
+	/* <main-style> ============================ */
+	.menu__link {
+		color: #372f2f;
+		line-height: 2;
+		position: relative;
+	}
+
+	.menu__link::before {
+		content: "";
+		width: 0;
+		height: 1.5px;
+		border-radius: 2px;
+		background-color: #372f2f;
+		position: absolute;
+		bottom: 2px;
+		right: 0;
+		transition:
+			right 0.4s,
+			width 0.4s,
+			left 0.4s;
+	}
+
+	.menu__link:hover::before,
+	input[type="radio"]:checked + .menu__link::before {
+		width: 100%;
+		left: 0;
+	}
+</style>
+
+<script>
+	function toSections() {
+		const labels = [
+			"casa home",
+			"sobre about",
+			"projetos projects",
+			"tecnologias skills",
+			"cv education",
+			"number contact",
+		];
+		labels.forEach((label) => {
+			const getLabel = document.querySelector(
+				`label[for="${label.split(" ")[0]}"]`
+			);
+
+			getLabel?.addEventListener("click", () => {
+				const targetElement = document.getElementById(label.split(" ")[1]);
+				if (targetElement) {
+					// @ts-ignore
+					const scrollbar = Scrollbar.get(
+						document.querySelector("#smooth-content")
+					);
+					const targetPosition =
+						targetElement.getBoundingClientRect().top + scrollbar.scrollTop;
+					scrollbar.scrollTo(0, targetPosition - 90, 1000); // 1000ms para smooth scroll
+				}
+			});
+		});
+	}
+
+	function checkSectionInView() {
+		const labels = [
+			"casa home",
+			"sobre about",
+			"projetos projects",
+			"tecnologias skills",
+			"cv education",
+			"number contact",
+		];
+		labels.forEach((label) => {
+			const targetElement = document.getElementById(label.split(" ")[1]);
+			const checkbox = document.querySelector(
+				`input[id="${label.split(" ")[0]}"]`
+			);
+			// @ts-ignore
+			const scrollbar = Scrollbar.get(
+				document.querySelector("#smooth-content")
+			);
+			const targetPosition =
+				targetElement?.getBoundingClientRect().top + scrollbar.scrollTop;
+			const viewportHeight = scrollbar.getSize().container.height;
+
+			if (
+				targetPosition >= scrollbar.scrollTop &&
+				targetPosition < scrollbar.scrollTop + viewportHeight
+			) {
+				(checkbox as HTMLInputElement).checked = true;
+			} else {
+				(checkbox as HTMLInputElement).checked = false;
+			}
+		});
+	}
+
+	// Inicializa o smooth-scrollbar se necessário
+	// @ts-ignore
+	const scrollbar = Scrollbar.init(document.querySelector("#smooth-content"));
+	scrollbar.addListener(({ offset }: { offset: { x: number; y: number } }) => {
+		if (offset.x !== 0) {
+			scrollbar.setPosition(0, offset.y, { withoutCallbacks: true });
+		}
+	});
+
+	
+	// Adiciona o evento de rolagem ao smooth-scrollbar
+	scrollbar.addListener(checkSectionInView);
+
+	toSections();
+</script>

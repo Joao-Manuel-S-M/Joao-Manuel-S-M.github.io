@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Matter";
+  src: url("/path/to/matter.woff") format("woff");
+} 
+
+html {
+  font-family: "Matter", sans-serif;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+
+  @media screen and (min-width: 800px) {
+    font-size: 20px;
+  }
+}
+
+body {
+  background-color: #fffef8;
+  overflow: hidden;
+  /* Ocultar a barra de rolagem nativa */
+}
+
+#smooth-content {
+  overflow: auto;
+  overflow-x: hidden !important;
+  height: 100vh;
+} 
+
+.scrollbar-thumb-x {
+  display: none !important;
+}
+

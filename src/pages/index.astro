@@ -1,0 +1,33 @@
+---
+import HeaderBase from "../components/sections/Header/HeaderBase.astro";
+import Home from "../components/sections/Home.astro";
+import Separator from "../components/Separator.astro";
+import Layout from "../layouts/Layout.astro";
+import About from "../components/sections/About.astro";
+import Projects from "../components/sections/Projects.astro";
+import Skills from "../components/sections/Skills.astro";
+import Education from "../components/sections/Education.astro";
+import Contact from "../components/sections/Contact.astro";
+import Footer from "../components/sections/Footer.astro";
+import NavBar from "../components/sections/Header/NavBar.astro";
+---
+
+<Layout>
+	<NavBar />
+	<div id="smooth-content">
+		<HeaderBase />
+		<Home />
+		<Separator />
+		<About />
+		<Separator />
+		<Projects />
+		<Separator />
+		<Skills />
+		<Separator />
+		<Education />
+		<Separator />
+		<Contact />
+		<Separator />
+		<Footer />
+	</div>
+</Layout>

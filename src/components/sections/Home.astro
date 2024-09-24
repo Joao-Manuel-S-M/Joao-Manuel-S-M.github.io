@@ -1,0 +1,117 @@
+---
+import bg from "@assets/homeBackground.webp";
+import Button from "../Button.astro";
+---
+
+<!-- Estrutura HTML da página -->
+<main
+	id="home"
+	style="clip-path: content-box;"
+	class="mt-[20px] flex p-[17px] md:mx-auto md:w-[100%] md:max-w-[1440px] min-[1460px]:px-0"
+>
+	<div
+		style=`background-image: url('${bg.src}')`
+		class="flex min-h-[80vh] w-screen flex-col items-center justify-center rounded-[20px] bg-cover bg-center py-[40px] md:h-[760px] md:px-[40px]"
+	>
+		<h1
+			id="name"
+			class="text-center font-italiana text-[1.6rem] text-white max-[340px]:text-[23px] md:text-[2.7rem] 2md:text-[3rem]"
+		>
+			João Manuel
+		</h1>
+		<h1
+			id="carrer"
+			class="text-center font-italiana text-[1.6rem] text-white max-[340px]:text-[23px] md:text-[1.8rem] 2md:text-[2.2rem]"
+		>
+			Desenvolvedor Front-End <br class="md:hidden" />
+			<span
+				class="text-border font-dmserif text-transparent max-[340px]:text-[23px]"
+			>
+				<span
+					class="text-border font-dmserif text-[1.6rem] text-transparent md:text-[1.8rem] 2md:text-[2.2rem]"
+				>
+					&
+				</span>
+				<br class="md:hidden" />
+				<span
+					class="text-border font-dmserif text-[1.6rem] text-transparent max-[340px]:text-[23px] md:text-[1.8rem] 2md:text-[2.2rem]"
+				>
+					Freelancer
+				</span>
+			</span>
+		</h1>
+		<div
+			class="mt-[70px] md:mt-[128px] md:flex md:w-[100%] md:max-w-[850px] md:items-center md:justify-between"
+		>
+			<p
+				id="description"
+				class="w-[280px] text-center font-matter text-xs leading-[20px] text-white max-[340px]:w-[250px] md:w-[400px] md:text-left md:text-[15px] md:leading-5"
+			>
+				Olá! Sou desenvolvedor front-end e freelancer, crio interfaces modernas
+				e funcionais, focando na experiência do usuário e sempre buscando inovar
+				com as mais recentes tecnologias web.
+			</p>
+
+			<div class="mt-[50px] md:mt-0 md:scale-[1.1]" id="contactBtnHome">
+				<a href="https://wa.me/5518996798213" target="_blank">
+					<Button color="white" scale="1.4" time="5s" />
+				</a>
+			</div>
+		</div>
+		<p
+			id="branding"
+			class="mt-[90px] text-center font-matter text-sm tracking-[0.25em] text-white md:mt-[172px] md:text-[0.8rem]"
+		>
+			CREATE • SHARE • REPEAT
+		</p>
+	</div>
+</main>
+
+<style>
+	.text-border {
+		-webkit-text-stroke: 0.3px rgb(255, 255, 255);
+	}
+</style>
+
+<!-- Adicionando o script para animar todos os textos da página -->
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		// Seleciona todos os elementos de texto
+		const texts = ["#name", "#carrer", "#description"];
+
+		// Cria um timeline para organizar as animações em sequência
+		//@ts-ignore
+		const tl = gsap.timeline({ delay: 0.07 });
+
+		// Animação sequencial para todos os textos
+		texts.forEach((text, index) => {
+			tl.from(text, {
+				opacity: 0,
+				y: 30,
+				duration: 0.5,
+				ease: "power3.out",
+				stagger: 0.2,
+				delay: index * 0.1, // Atraso sequencial entre cada texto
+			});
+		});
+
+		// Animação adicional para o botão
+		tl.from("#contactBtnHome", {
+			opacity: 0,
+			scale: 0.8,
+			duration: 0.5,
+			ease: "bounce.out",
+			delay: 0,
+		});
+
+		tl.from("#branding", {
+			opacity: 0,
+			y: 30,
+			duration: 0.5,
+			ease: "power3.out",
+			stagger: 0.2,
+			delay: 0.1, // Atraso sequencial entre cada texto
+		});
+	});
+</script>

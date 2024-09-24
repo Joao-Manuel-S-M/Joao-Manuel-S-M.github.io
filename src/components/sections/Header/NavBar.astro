@@ -190,16 +190,22 @@
 
 	// Inicializa o smooth-scrollbar se necessário
 	// @ts-ignore
-	const scrollbar = Scrollbar.init(document.querySelector("#smooth-content"));
-	scrollbar.addListener(({ offset }: { offset: { x: number; y: number } }) => {
-		if (offset.x !== 0) {
-			scrollbar.setPosition(0, offset.y, { withoutCallbacks: true });
-		}
-	});
+	const isLargeScreen = window.innerWidth > 800;
+	if (isLargeScreen) {
+		// @ts-ignore
+		const scrollbar = Scrollbar.init(document.querySelector("#smooth-content"));
+		scrollbar.addListener(
+			({ offset }: { offset: { x: number; y: number } }) => {
+				if (offset.x !== 0) {
+					scrollbar.setPosition(0, offset.y, { withoutCallbacks: true });
+				}
+			}
+		);
+		// Adiciona o evento de rolagem ao smooth-scrollbar
+		scrollbar.addListener(checkSectionInView);
+	}
 
-	
-	// Adiciona o evento de rolagem ao smooth-scrollbar
-	scrollbar.addListener(checkSectionInView);
+	//desabilita o scroll
 
 	toSections();
 </script>

@@ -1,6 +1,6 @@
 ---
 import Cursor from "../components/Cursor/Cursor.astro";
-import '../styles/global.css';
+import "../styles/global.css";
 ---
 
 <!doctype html>
@@ -12,8 +12,24 @@ import '../styles/global.css';
 
 		<!-- <link rel="stylesheet" href="../../src/styles/global.css" /> -->
 		<meta name="generator" content={Astro.generator} />
-		<link rel="shortcut icon" href="/public/assets/favicon.svg" type="image/x-icon">
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link
+			rel="shortcut icon"
+			href="/public/assets/favicon.ico"
+			type="image/x-icon"
+		/>
+		<meta
+			name="description"
+			content="João Manuel de Souza Marques, desenvolvedor front-end e freelancer. Especializado em criação de interfaces modernas e funcionais, com experiência em HTML, CSS, JavaScript e React. Conheça mais sobre minha trajetória, habilidades e projetos."
+		/>
+		<meta
+			name="keywords"
+			content="João Manuel, João Manuel de Souza Marques, desenvolvedor front-end, freelancer, HTML, CSS, JavaScript, React, front-end, web, desenvolvimento web, desenvolvedor web, programador, programação, desenvolvimento de sites, desenvolvimento de sistemas, desenvolvimento de aplicativos, desenvolvimento de interfaces, criação de interfaces, criação de sites, criação de sistemas, criação de aplicativos, criação de interfaces modernas, criação de interfaces funcionais, criação de interfaces responsivas, criação de interfaces acessíveis, criação de interfaces interativas, criação de interfaces animadas, criação de interfaces dinâmicas, engenharia de software, engenheiro de software, desenvolvedor de software, desenvolvimento de software, desenvolvimento de software web, desenvolvimento de software mobile, desenvolvimento de software desktop, desenvolvimento de software multiplataforma, desenvolvimento de software cross-platform, desenvolvimento de software front-end, desenvolvimento de software back-end, desenvolvimento de software fullstack, desenvolvimento de software MERN, desenvolvimento de software MEAN, desenvolvimento de software MEVN, desenvolvimento de software LAMP, desenvolvimento de software WAMP"
+		/>
+		<meta name="author" content="João Manuel de Souza Marques" />
+		<meta name="robots" content="index, follow" />
+
+		<link rel="
+			preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<link
 			href="https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Italiana&display=swap"
@@ -45,139 +61,132 @@ import '../styles/global.css';
 		<slot />
 
 		<script>
-			
 			document.addEventListener("DOMContentLoaded", () => {
-            console.log("DOM fully loaded and parsed");
+				console.log("DOM fully loaded and parsed");
 
-            // Verificar se a largura da tela é maior que 800px
-            const isLargeScreen = window.innerWidth > 800;
+				// Verificar se a largura da tela é maior que 800px
+				const isLargeScreen = window.innerWidth > 800;
 
-            if (isLargeScreen) {
-                // Inicializar o Smooth Scrollbar
-                // @ts-ignore
-                const scrollbar = Scrollbar.init(
-                    document.querySelector("#smooth-content"),
-                    {
-                        damping: 0.1,
-                        continuousScrolling: true,
-                        renderByPixels: false,
-                        plugins: {
-                            overscroll: {
-                                effect: "glow",
-                                direction: "y", // Permite apenas scroll vertical
-                            },
-                        },
-                    }
-                );
-
-                // Desativar o scroll horizontal
-                // @ts-ignore
-                scrollbar.addListener(({ offset }) => {
-                    if (offset.x !== 0) {
-                        scrollbar.setPosition(0, offset.y, { withoutCallbacks: true });
-                    }
-                });
-
-                console.log("Smooth Scrollbar initialized:", scrollbar);
-
-                // Verificar se GSAP e ScrollTrigger estão disponíveis
-                // @ts-ignore
-                console.log("GSAP:", typeof gsap);
-                // @ts-ignore
-                console.log("ScrollTrigger:", typeof ScrollTrigger);
-
-                if (
-                    // @ts-ignore
-                    typeof gsap !== "undefined" &&
-                    // @ts-ignore
-                    typeof ScrollTrigger !== "undefined"
-                ) {
-                    console.log("GSAP and ScrollTrigger loaded");
-
-                    // @ts-ignore
-                    gsap.registerPlugin(ScrollTrigger);
-
-                    // Sincronizar o ScrollTrigger com o Smooth Scrollbar
-                    // @ts-ignore
-                    ScrollTrigger.scrollerProxy("#smooth-content", {
-                        // @ts-ignore
-                        scrollTop(value) {
-                            if (arguments.length) {
-                                scrollbar.scrollTop = value;
-                            }
-                            return scrollbar.scrollTop;
-                        },
-                    });
-
-                    // @ts-ignore
-                    scrollbar.addListener(ScrollTrigger.update);
-
-                    // Animações com GSAP
-                    // Animações com GSAP
+				if (isLargeScreen) {
+					// Inicializar o Smooth Scrollbar
 					// @ts-ignore
-					gsap.utils.toArray(".title").forEach((element) => {
-						// @ts-ignore
-						console.log("Animating .title element:", element);
-						// @ts-ignore
-						gsap.from(element, {
-							scrollTrigger: {
-								trigger: element,
-								start: "top 100%",
-								end: "top 70%",
-								scrub: true,
-								scroller: "#smooth-content",
+					const scrollbar = Scrollbar.init(
+						document.querySelector("#smooth-content"),
+						{
+							damping: 0.1,
+							continuousScrolling: true,
+							renderByPixels: false,
+							plugins: {
+								overscroll: {
+									effect: "glow",
+									direction: "y", // Permite apenas scroll vertical
+								},
 							},
-							y: 50,
-							opacity: 0,
-							duration: 1,
-						});
+						}
+					);
+
+					// Desativar o scroll horizontal
+					// @ts-ignore
+					scrollbar.addListener(({ offset }) => {
+						if (offset.x !== 0) {
+							scrollbar.setPosition(0, offset.y, { withoutCallbacks: true });
+						}
 					});
 
-					// @ts-ignore
-					gsap.utils.toArray(".items").forEach((element) => {
-						console.log("Animating .items element:", element);
-						// @ts-ignore
-						gsap.from(element, {
-							scrollTrigger: {
-								trigger: element,
-								start: "top 100%",
-								end: "top 70%",
-								scrub: true,
-								scroller: "#smooth-content",
-							},
-							y: 50,
-							opacity: 0,
-							duration: 1,
-						});
-					});
+					console.log("Smooth Scrollbar initialized:", scrollbar);
 
+					// Verificar se GSAP e ScrollTrigger estão disponíveis
 					// @ts-ignore
-					gsap.utils.toArray(".itemsDown").forEach((element) => {
-						// @ts-ignore
-						console.log("Animating .itemsDown element:", element);
-						// @ts-ignore
-						gsap.from(element, {
-							scrollTrigger: {
-								trigger: element,
-								start: "top 100%",
-								end: "top 90%",
-								scrub: true,
-								scroller: "#smooth-content",
-							},
-							y: -50,
-							opacity: 0,
-							duration: 1,
-						});
-					});
-                }
-            }
-        });
+					console.log("GSAP:", typeof gsap);
+					// @ts-ignore
+					console.log("ScrollTrigger:", typeof ScrollTrigger);
 
-					
-			
-					
-				
-			
+					if (
+						// @ts-ignore
+						typeof gsap !== "undefined" &&
+						// @ts-ignore
+						typeof ScrollTrigger !== "undefined"
+					) {
+						console.log("GSAP and ScrollTrigger loaded");
+
+						// @ts-ignore
+						gsap.registerPlugin(ScrollTrigger);
+
+						// Sincronizar o ScrollTrigger com o Smooth Scrollbar
+						// @ts-ignore
+						ScrollTrigger.scrollerProxy("#smooth-content", {
+							// @ts-ignore
+							scrollTop(value) {
+								if (arguments.length) {
+									scrollbar.scrollTop = value;
+								}
+								return scrollbar.scrollTop;
+							},
+						});
+
+						// @ts-ignore
+						scrollbar.addListener(ScrollTrigger.update);
+
+						// Animações com GSAP
+						// Animações com GSAP
+						// @ts-ignore
+						gsap.utils.toArray(".title").forEach((element) => {
+							// @ts-ignore
+							console.log("Animating .title element:", element);
+							// @ts-ignore
+							gsap.from(element, {
+								scrollTrigger: {
+									trigger: element,
+									start: "top 100%",
+									end: "top 70%",
+									scrub: true,
+									scroller: "#smooth-content",
+								},
+								y: 50,
+								opacity: 0,
+								duration: 1,
+							});
+						});
+
+						// @ts-ignore
+						gsap.utils.toArray(".items").forEach((element) => {
+							console.log("Animating .items element:", element);
+							// @ts-ignore
+							gsap.from(element, {
+								scrollTrigger: {
+									trigger: element,
+									start: "top 100%",
+									end: "top 70%",
+									scrub: true,
+									scroller: "#smooth-content",
+								},
+								y: 50,
+								opacity: 0,
+								duration: 1,
+							});
+						});
+
+						// @ts-ignore
+						gsap.utils.toArray(".itemsDown").forEach((element) => {
+							// @ts-ignore
+							console.log("Animating .itemsDown element:", element);
+							// @ts-ignore
+							gsap.from(element, {
+								scrollTrigger: {
+									trigger: element,
+									start: "top 100%",
+									end: "top 90%",
+									scrub: true,
+									scroller: "#smooth-content",
+								},
+								y: -50,
+								opacity: 0,
+								duration: 1,
+							});
+						});
+					}
+				}
+			});
 		</script>
 	</body>
 </html>

@@ -105,12 +105,12 @@ import Button from "../../Button.astro";
 			<div style="">
 				<nav class="p-[10px]">
 					<ul class="flex flex-col gap-[35px] text-center">
-						<li class="text-sm" id="homeMobile">HOME</li>
-						<li class="text-sm" id="aboutMobile">SOBRE</li>
-						<li class="text-sm" id="projectsMobile">PROJETOS</li>
-						<li class="text-sm" id="skillsMobile">SKILLS</li>
-						<li class="text-sm" id="educationMobile">CURRÍCULO</li>
-						<li class="text-sm" id="contactMobile">CONTATO</li>
+						<a href="#home" class="text-sm" id="homeMobile">HOME</a>
+						<a href="#about" class="text-sm" id="aboutMobile">SOBRE</a>
+						<a href="#projects" class="text-sm" id="projectsMobile">PROJETOS</a>
+						<a href="#skills" class="text-sm" id="skillsMobile">SKILLS</a>
+						<a href="#education" class="text-sm" id="educationMobile">CURRÍCULO</a>
+						<a href="#contact" class="text-sm" id="contactMobile">CONTATO</a>
 					</ul>
 				</nav>
 			</div>
@@ -164,13 +164,13 @@ import Button from "../../Button.astro";
 		//@ts-ignore
 		menu.classList.remove("openMenu");
 
-		Array.from(scrollElements).forEach((scroll) => {
-			scroll.classList.remove("scrollBlocked");
-		});
+		// Array.from(scrollElements).forEach((scroll) => {
+		// 	scroll.classList.remove("scrollBlocked");
+		// });
 
-		Array.from(scrollBarY).forEach((scroll) => {
-			scroll.classList.remove("scrollBarYHidden");
-		});
+		// Array.from(scrollBarY).forEach((scroll) => {
+		// 	scroll.classList.remove("scrollBarYHidden");
+		// });
 	}
 
 	function toSectionsMobile() {
@@ -182,21 +182,11 @@ import Button from "../../Button.astro";
 			"educationMobile",
 			"contactMobile",
 		];
-		labels.forEach((label) => {
-			const getLabel = document.getElementById(label);
 
-			getLabel?.addEventListener("click", () => {
-				const targetElement = document.getElementById(label.split("Mobile")[0]);
-				if (targetElement) {
-					// @ts-ignore
-					const scrollbar = Scrollbar.get(
-						document.querySelector("#smooth-content")
-					);
-					const targetPosition =
-						targetElement.getBoundingClientRect().top + scrollbar.scrollTop;
-					scrollbar.scrollTo(0, targetPosition - 90, 1800); // 1000ms para smooth scroll
-					closeMenu();
-				}
+		labels.forEach((label) => {
+			const labelValue = document.getElementById(label);
+			labelValue?.addEventListener("click", () => {
+				closeMenu();
 			});
 		});
 	}

@@ -164,13 +164,13 @@ import Button from "../../Button.astro";
 		//@ts-ignore
 		menu.classList.remove("openMenu");
 
-		// Array.from(scrollElements).forEach((scroll) => {
-		// 	scroll.classList.remove("scrollBlocked");
-		// });
+		Array.from(scrollElements).forEach((scroll) => {
+			scroll.classList.remove("scrollBlocked");
+		});
 
-		// Array.from(scrollBarY).forEach((scroll) => {
-		// 	scroll.classList.remove("scrollBarYHidden");
-		// });
+		Array.from(scrollBarY).forEach((scroll) => {
+			scroll.classList.remove("scrollBarYHidden");
+		});
 	}
 
 	function toSectionsMobile() {

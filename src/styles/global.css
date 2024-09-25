@@ -17,7 +17,9 @@ html {
 
 body {
   background-color: #fffef8;
-  overflow: hidden;
+  /* overflow: hidden; */
+
+ 
   /* Ocultar a barra de rolagem nativa */
 }
 
@@ -31,10 +33,14 @@ body {
   display: none !important;
 }
 
+
+
+
 #smooth-content {
   @media screen and (max-width: 800px) {
-    scroll-behavior: smooth;
-    
+  
+    height: auto !important; 
+
   }
 }
 

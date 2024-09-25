@@ -6,7 +6,23 @@ import "../styles/global.css";
 <!doctype html>
 <html lang="pt-BR">
 	<head>
-		
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-HNDEXGCEQ0"
+		></script>
+		<script>
+			// @ts-ignore
+			window.dataLayer = window.dataLayer || [];
+			function gtag() {
+				// @ts-ignore
+				dataLayer.push(arguments);
+			}
+			// @ts-ignore
+			gtag("js", new Date());
+
+			// @ts-ignore
+			gtag("config", "G-HNDEXGCEQ0");
+		</script>
+
 		<meta charset="UTF-8" />
 		<meta name="description" content="Astro description" />
 		<meta name="viewport" content="width=device-width" />
@@ -53,7 +69,6 @@ import "../styles/global.css";
 		<title>João Manuel | Portfólio</title>
 	</head>
 	<body>
-		
 		<Cursor />
 
 		<slot />

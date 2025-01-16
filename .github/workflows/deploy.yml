@@ -19,10 +19,6 @@ jobs:
 
       - name: Install, build, and upload your site
         uses: withastro/action@v1
-        # with:
-        # path: . # A localização da pasta raiz do seu projeto Astro dentro do seu repositório. (opcional)
-        # node-version: 18 # A versão específica do Node a ser usada para a build do seu site. A versão padrão é 18. (opcional)
-        # package-manager: pnpm@latest # O gerenciador de pacotes usado para instalar dependências e fazer a build do site. É detectado automaticamente a partir do seu lockfile. (opcional)
 
   deploy:
     needs: build
@@ -33,4 +29,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4 # Verifique se esta versão é realmente a mais atual

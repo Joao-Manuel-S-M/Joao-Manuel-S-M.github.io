@@ -24,9 +24,9 @@ jobs:
            # package-manager: pnpm@latest # O gerenciador de pacotes usado para instalar as dependências e fazer a build do site. É automaticamente detectado a partir da sua lockfile. (opcional)
       - name: Upload artifact
         uses: actions/upload-artifact@v4.6.0
-        with:
-          name: site
-          path: path/to/site
+        # with:
+        #   name: site
+        #   path: path/to/site
 
   deploy:
     needs: build

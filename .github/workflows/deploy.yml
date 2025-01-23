@@ -16,10 +16,17 @@ jobs:
     steps:
       - name: Checkout your repository using git
         uses: actions/checkout@v4
-      - name: Install dependencies
-        run: npm install
-      - name: Build the site
-        run: npm run build
+      - name: Install, build, and upload your site
+        uses: withastro/action@v1
+         # with:
+           # path: . # A localização da pasta raiz do seu projeto Astro dentro do seu repositório. (opcional)
+           # node-version: 18 # A versão específica do Node que deve ser utilizada para a build do seu site. A versão padrão é a 18. (opcional)
+           # package-manager: pnpm@latest # O gerenciador de pacotes usado para instalar as dependências e fazer a build do site. É automaticamente detectado a partir da sua lockfile. (opcional)
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.6.0
+        with:
+          name: site
+          path: dist
 
   deploy:
     needs: build
@@ -28,10 +35,10 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout your repository using git
-        uses: actions/checkout@v4
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Download artifact
+        uses: actions/download-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          name: site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

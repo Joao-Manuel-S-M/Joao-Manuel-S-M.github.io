@@ -155,39 +155,58 @@
 		});
 	}
 
-	function checkSectionInView() {
-		const labels = [
-			"casa home",
-			"sobre about",
-			"projetos projects",
-			"tecnologias skills",
-			"cv education",
-			"number contact",
-		];
-		labels.forEach((label) => {
-			const targetElement = document.getElementById(label.split(" ")[1]);
-			const checkbox = document.querySelector(
-				`input[id="${label.split(" ")[0]}"]`
-			);
-			// @ts-ignore
-			const scrollbar = Scrollbar.get(
-				document.querySelector("#smooth-content")
-			);
-			const targetPosition =
-				targetElement?.getBoundingClientRect().top + scrollbar.scrollTop;
-			const viewportHeight = scrollbar.getSize().container.height;
+ 	function checkSectionInView() {
+ 		const mappings = [
+ 			{ id: 'casa', section: 'home' },
+ 			{ id: 'sobre', section: 'about' },
+ 			{ id: 'projetos', section: 'projects' },
+ 			{ id: 'tecnologias', section: 'skills' },
+ 			// 'cv' should be active when either 'education' OR 'certifications' is visible
+ 			{ id: 'cv', section: ['education', 'certifications'] },
+ 			{ id: 'number', section: 'contact' },
+ 		];
 
-			if (
-				targetPosition >= scrollbar.scrollTop &&
-				targetPosition < scrollbar.scrollTop + viewportHeight
-			) {
-				(checkbox as HTMLInputElement).checked = true;
-			} else {
-				(checkbox as HTMLInputElement).checked = false;
-			}
-		});
-	}
+ 		// @ts-ignore
+ 		const scrollbar = Scrollbar.get(document.querySelector('#smooth-content'));
+ 		if (!scrollbar) return;
 
+ 		const viewportTop = scrollbar.scrollTop;
+ 		const viewportHeight = scrollbar.getSize().container.height;
+
+ 		mappings.forEach(({ id, section }) => {
+ 			const checkbox = document.querySelector(`input[id="${id}"]`);
+ 			if (!checkbox) return;
+
+ 			let isVisible = false;
+
+ 			if (Array.isArray(section)) {
+ 				// if any of the sections in the array is visible, mark the checkbox
+ 				for (const sec of section) {
+ 					const el = document.getElementById(sec);
+ 					if (!el) continue;
+ 					const elTop = el.getBoundingClientRect().top + viewportTop;
+ 					const elBottom = elTop + el.offsetHeight;
+ 					if (elBottom > viewportTop && elTop < viewportTop + viewportHeight) {
+ 						isVisible = true;
+ 						break;
+ 					}
+ 				}
+ 			} else {
+ 				const el = document.getElementById(section);
+ 				if (el) {
+ 					const elTop = el.getBoundingClientRect().top + viewportTop;
+ 					const elBottom = elTop + el.offsetHeight;
+ 					isVisible = elBottom > viewportTop && elTop < viewportTop + viewportHeight;
+ 				}
+ 			}
+
+ 			(checkbox as HTMLInputElement).checked = !!isVisible;
+ 		});
+ 	}
+
+
+
+	
 	// Inicializa o smooth-scrollbar se necessário
 	// @ts-ignore
 	const isLargeScreen = window.innerWidth > 800;
